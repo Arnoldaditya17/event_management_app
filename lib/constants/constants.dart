@@ -4,14 +4,16 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../model/User.dart';
+import '../models/User.dart';
+
+
 
 class Constants{
   static getUri(String endpoint) {
     return Uri(
       scheme: 'http',
-      host: '192.168.1.9',
-      port: 8081,
+      host: '10.11.0.49',
+      port: 8080,
       path: endpoint,
     );
   }

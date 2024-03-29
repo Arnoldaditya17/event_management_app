@@ -1,7 +1,9 @@
+import 'package:event_management_app/utility/routes/routes_name.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm/utils/routes/routes_name.dart';
-import 'package:flutter_mvvm/view/home_screen.dart';
-import 'package:flutter_mvvm/view/login_screen.dart';
+
+import '../../screens/HomeScreen/home.dart';
+import '../../screens/loginscreen/login.dart';
+
 
 class Routes {
   static Route<dynamic> generateRoutes(RouteSettings settings) {
