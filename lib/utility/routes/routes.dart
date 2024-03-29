@@ -1,3 +1,4 @@
+import 'package:event_management_app/screens/signupscreen/sign_user.dart';
 import 'package:event_management_app/utility/routes/routes_name.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +16,10 @@ class Routes {
       case RoutesName.login:
         return MaterialPageRoute(
           builder: (BuildContext context) => const LoginPage(),
+        );
+      case RoutesName.signup:
+        return MaterialPageRoute(
+          builder: (BuildContext context) => const SignupScreen(),
         );
       default:
         return MaterialPageRoute(
