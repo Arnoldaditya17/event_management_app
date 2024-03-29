@@ -10,12 +10,14 @@ class UserController{
   static Future<User> login(String email , String password) async {
     final url = Constants.getUri('/user/login');
     final response = await http.post(
+
       url,
       body:jsonEncode({"email":email,"password":password}),
       headers: {
         'Content-Type': 'application/json',
       },
     );
+
 
     if (response.statusCode == 200) {
       final  User user = User.fromJson(json.decode(response.body));

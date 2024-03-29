@@ -1,5 +1,8 @@
 import 'package:event_management_app/providers/auth_provider.dart';
 import 'package:event_management_app/screens/loginscreen/login.dart';
+import 'package:event_management_app/utility/routes/routes.dart';
+import 'package:event_management_app/utility/routes/routes_name.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -48,8 +51,8 @@ class MyApp extends StatelessWidget {
 
 
           debugShowCheckedModeBanner: false,
-          home:  const LoginScreen(),//NotifyListenerScreen(),
-          //DarkScreen(),
+          initialRoute: RoutesName.login,
+          onGenerateRoute: Routes.generateRoutes,
         );
       }),
     );

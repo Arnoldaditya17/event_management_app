@@ -1,129 +1,194 @@
 import 'package:flutter/material.dart';
 
-import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
+import '../../controllers/UserController.dart';
+import '../../models/User.dart';
+import '../../utility/routes/routes_name.dart';
 
-import '../../providers/auth_provider.dart';
-
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  LoginPageState createState() => LoginPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+class LoginPageState extends State<LoginPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isPasswordVisible = false; // Initially, password is hidden
+  bool isValidEmail(String email) {
+    // Define a regular expression for email validation
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    return emailRegex.hasMatch(email);
+  }
+
   @override
   Widget build(BuildContext context) {
-    print("build");
-    final authProvider = Provider.of<AuthProvider>(context);
-    ValueNotifier<bool> toggle = ValueNotifier<bool>(true);
     return Scaffold(
-      backgroundColor: Colors.black45.withOpacity(0.2),
       appBar: AppBar(
-        centerTitle: true,
-        title: const Text(
-          "Home",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
-        backgroundColor: Colors.deepOrange,
+        title: const Text('Event Management system'),
+        backgroundColor: const Color.fromARGB(255, 41, 8, 134),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Lottie.network(
-              'https://lottie.host/6d3fa948-6ec1-4bcc-b7f2-344492cbffb7/LmzMBy2DSs.json',
-              height: 300,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.white),
-                controller: emailController,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  hintStyle: const TextStyle(color: Colors.white),
-                  border: const OutlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        // decoration: const BoxDecoration(
+        //   gradient: LinearGradient(
+        //     begin: Alignment.topLeft,
+        //     end: Alignment.bottomRight,
+        //     colors: [
+        //       Color.fromARGB(255, 222, 105, 42),
+        //       Color.fromARGB(255, 89, 40, 145),
+        //       Color.fromARGB(255, 184, 237, 111),
+        //     ],
+        //   ),
+        // ),
+        child: Form(
+          key: _formKey,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Align(alignment: Alignment.center),
+                const Text(
+                  'Login',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: ValueListenableBuilder(
-                    valueListenable: toggle,
-                    builder: (context, value, child) {
-                      return TextFormField(
-                        style: const TextStyle(color: Colors.white),
-                        controller: passwordController,
-                        obscureText: toggle.value,
-                        decoration: InputDecoration(
-                          suffix: Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: InkWell(
-                              onTap: () {
-                                toggle.value=!toggle.value;
-                              },
-                              child: Icon(toggle.value
-                                  ? Icons.visibility_off
-                                  : Icons.visibility),
-                            ),
-                          ),
-                          hintText: "Password",
-                          hintStyle: TextStyle(color: Colors.white),
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(),
-                          ),
-                        ),
-                      );
-                    })),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: InkWell(
-                onTap: () {
-                  String email = emailController.text.trim();
-                  String password = passwordController.text.trim();
-                  if (email.isNotEmpty && password.isNotEmpty) {
-                    authProvider.login(email, password);
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields.'),
-                        duration: Duration(seconds: 2),
-                        behavior: SnackBarBehavior.floating,
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 40,
+                    right: 40,
+                    top: 20,
+                    bottom: 5,
+                  ),
+                  child: TextFormField(
+                    controller: _emailController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      } else if (!isValidEmail(value)) {
+                        return 'Please enter a valid email';
+                      }
+                      // Add more email validation logic if needed
+                      return null;
+                    },
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
                       ),
-                    );
-                  }
-                },
-                child: Container(
-                  height: 50,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: Colors.deepOrange,
-                    border: Border.all(),
-                  ),
-                  child: Center(
-                    child: authProvider.loading
-                        ? CircularProgressIndicator()
-                        : Text(
-                            "Login",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
+                      hintText: 'Email',
+                      hintStyle: TextStyle(color: Colors.black),
+                      fillColor: const Color.fromARGB(255, 225, 227, 229),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 40,
+                    right: 40,
+                    top: 10,
+                    bottom: 5,
+                  ),
+                  child: TextFormField(
+                    controller: _passwordController,
+                    obscureText: !_isPasswordVisible,
+                    // Toggle password visibility
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      } else if (value.length < 8) {
+                        return 'Password must be at least 8 characters';
+                      }
+                      // Add more password validation logic if needed
+                      return null;
+                    },
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 14,
+                    ),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0,
+                        horizontal: 20.0,
+                      ),
+                      hintText: 'Password',
+                      hintStyle: TextStyle(color: Colors.black),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          color: Colors.grey,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
+                      fillColor: const Color.fromARGB(255, 225, 227, 229),
+                      filled: true,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final email = _emailController.text; // Get email
+                      final password = _passwordController.text;
+
+                      try {
+
+                        final User user = await UserController.login(email, password);
+                        Navigator.pushNamed(context, RoutesName.home);
+
+
+                      } catch (e) {
+
+                        print('Authentication failed: $e');
+                      }
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.only(
+                      left: 50,
+                      right: 50,
+                      top: 10,
+                      bottom: 10,
+                    ),
+                    backgroundColor: const Color.fromARGB(255, 41, 8, 134),
+                  ),
+                  child: const Text('LOGIN'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/forgotpassword');
+                  },
+                  child: const Text(
+                    'Forgot Password ?',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
