@@ -38,8 +38,8 @@ class NavigationController extends GetxController {
   final Rx<int> selectedIndex = 0.obs;
 
   final screens = [
-     EventListScreen(),
     HomeScreen(),
+    EventListScreen(),
     ImagePickerPage(),
     //const ProfileScreen(),
   ];

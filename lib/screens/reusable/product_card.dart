@@ -9,15 +9,25 @@ import '../reusable/rounded_container.dart';
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({
     Key? key,
-    required this.eventName,
-    required this.eventImageUrl,
-    required this.eventPrice, this.onTap,
+    //required this.eventPrice,
+    this.onTap,
+    required this.title,
+    required this.subtitle,
+    required this.date,
+    required this.endDate,
+    required this.startTime,
+    required this.eventPictureUrl,
   }) : super(key: key);
 
-  final String eventName;
-  final String eventImageUrl;
-  final String eventPrice;
+  //final double eventPrice;
   final VoidCallback? onTap;
+  final String title;
+  final String subtitle;
+  final String date;
+  final String endDate;
+  final String startTime;
+  final String eventPictureUrl;
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +55,7 @@ class TProductCardVertical extends StatelessWidget {
               backgroundColor: AppColors.light,
               child: TRoundedImage(
                 isNetworkImage: true,
-                imageUrl: eventImageUrl,
+                imageUrl: eventPictureUrl,
                 applyImageRadius: true,
               ),
             ),
@@ -53,7 +63,7 @@ class TProductCardVertical extends StatelessWidget {
 
             /// --- Details
             Padding(
-              padding: const EdgeInsets.only(left: TSizes.sm,right: TSizes.sm),
+              padding: const EdgeInsets.only(left: TSizes.sm, right: TSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -61,11 +71,15 @@ class TProductCardVertical extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TProductTextTitle(
-                        title: eventName,
+                        title: title,
                       ),
                       const SizedBox(height: TSizes.spaceBtwItems / 2),
                       TProductTextTitle(title: '05-06-2024'),
                     ],
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwItems),
+                  TProductTextTitle(
+                    title: subtitle,
                   ),
                 ],
               ),
@@ -78,7 +92,7 @@ class TProductCardVertical extends StatelessWidget {
                 /// Price
                 Padding(
                   padding: const EdgeInsets.only(left: TSizes.sm),
-                  child: TProductPriceText(price: eventPrice),
+                  child: TProductPriceText(price: '400'),
                 ),
 
                 /// Add to Cart Button
@@ -94,7 +108,13 @@ class TProductCardVertical extends StatelessWidget {
                     width: TSizes.iconLg * 2.8,
                     height: TSizes.iconLg * 1.2,
                     child: Center(
-                      child: Text('Get Ticket', style: Theme.of(context).textTheme.titleMedium!.apply(color: Colors.white),),
+                      child: Text(
+                        'Get Ticket',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .apply(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
