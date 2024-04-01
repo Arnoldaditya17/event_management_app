@@ -12,7 +12,7 @@ class Constants{
   static getUri(String endpoint) {
     return Uri(
       scheme: 'http',
-      host: '10.11.0.49',
+      host: '10.11.1.253',
       port: 8080,
       path: endpoint,
     );

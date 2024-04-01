@@ -1,3 +1,4 @@
+import 'package:event_management_app/screens/eventscreen/event_screen.dart';
 import 'package:event_management_app/screens/signupscreen/sign_user.dart';
 import 'package:event_management_app/utility/routes/routes_name.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,10 @@ class Routes {
       case RoutesName.signup:
         return MaterialPageRoute(
           builder: (BuildContext context) => const SignupScreen(),
+        );
+      case RoutesName.event:
+        return MaterialPageRoute(
+          builder: (BuildContext context) =>  EventListScreen(),
         );
       default:
         return MaterialPageRoute(

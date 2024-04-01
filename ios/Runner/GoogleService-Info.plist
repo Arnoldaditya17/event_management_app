@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDHKGETAd1sy3WAq2R61XfrJ-Gob0o_nKQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>731769170180</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.eventManagementApp</string>
+	<key>PROJECT_ID</key>
+	<string>eventmanagementsystem-2a3d9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>eventmanagementsystem-2a3d9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:731769170180:ios:9eebbd6d6450c019cd0851</string>
+</dict>
+</plist>

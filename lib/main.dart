@@ -2,15 +2,19 @@ import 'package:event_management_app/providers/auth_provider.dart';
 import 'package:event_management_app/screens/HomeScreen/home.dart';
 import 'package:event_management_app/screens/loginscreen/login.dart';
 import 'package:event_management_app/utility/routes/routes.dart';
-import 'package:event_management_app/utility/routes/routes_name.dart';
+
+import 'package:firebase_core/firebase_core.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'constants/constants.dart';
+import 'firebase_options.dart';
 import 'models/user.dart';
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-void main() {
   runApp(const MyApp());
 }
 
