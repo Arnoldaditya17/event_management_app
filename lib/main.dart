@@ -1,6 +1,8 @@
 import 'package:event_management_app/providers/auth_provider.dart';
+import 'package:event_management_app/resources/components/navigation_menu.dart';
 import 'package:event_management_app/screens/HomeScreen/home.dart';
 import 'package:event_management_app/screens/loginscreen/login.dart';
+import 'package:event_management_app/theme/theme.dart';
 import 'package:event_management_app/utility/routes/routes.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -44,18 +46,13 @@ class MyApp extends StatelessWidget {
         //final themeProvider=Provider.of<ThemeProvider>(context);
         return MaterialApp(
           //themeMode: themeProvider.themeMode,
-          theme: ThemeData(
-
-              iconTheme: const IconThemeData(color: Colors.blue,)
-
-
-          ),
-          darkTheme: ThemeData(brightness: Brightness.dark,
-            primaryColor: Colors.red,
-            iconTheme:const IconThemeData(color: Colors.red),
-            appBarTheme:  const AppBarTheme(backgroundColor: Colors.red),
-
-          ),
+          theme: TAppTheme.lightTheme,
+          // darkTheme: ThemeData(brightness: Brightness.dark,
+          //   primaryColor: Colors.red,
+          //   iconTheme:const IconThemeData(color: Colors.red),
+          //   appBarTheme:  const AppBarTheme(backgroundColor: Colors.red),
+          //
+          // ),
 
 
           debugShowCheckedModeBanner: false,
@@ -68,7 +65,7 @@ class MyApp extends StatelessWidget {
               } else {
                 if (snapshot.hasData) {
                   // User data exists, navigate to the home page
-                  return const HomeScreen();
+                  return const NavigationMenu();
                 } else {
                   // User data doesn't exist, navigate to the login page
                   return const LoginPage();

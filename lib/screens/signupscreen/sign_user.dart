@@ -1,6 +1,7 @@
 import 'package:event_management_app/controllers/user_signup_controller.dart';
+import 'package:event_management_app/utility/sizes.dart';
 import 'package:flutter/material.dart';
-import '../../controllers/user_login_controller.dart';
+import 'package:iconsax/iconsax.dart';
 import '../../models/user.dart';
 import '../../utility/routes/routes_name.dart';
 
@@ -48,7 +49,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register Teacher')),
+      appBar: AppBar(),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
@@ -56,31 +57,41 @@ class _SignupScreenState extends State<SignupScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              TextFormField(
-                controller: firstNameController,
-                decoration: const InputDecoration(labelText: 'First Name'),
-                validator: validateName,
+              Text("Let's Create your account", style: Theme.of(context).textTheme.headlineMedium,),
+              const SizedBox(height: TSizes.spaceBtwSections),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: firstNameController,
+                      decoration: const InputDecoration(labelText: 'First Name',prefixIcon: Icon(Iconsax.user),),
+                      validator: validateName,
+                    ),
+                  ),
+                  const SizedBox(width: TSizes.spaceBtwInputFields),
+                  Expanded(
+                    child: TextFormField(
+                      controller: lastNameController,
+                      decoration: const InputDecoration(labelText: 'Last Name',prefixIcon: Icon(Iconsax.user),),
+                      validator: validateName,
+                    ),
+                  ),
+                ],
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: lastNameController,
-                decoration: const InputDecoration(labelText: 'Last Name'),
-                validator: validateName,
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(labelText: 'Email ID'),
+                decoration: const InputDecoration(labelText: 'Email ID',prefixIcon: Icon(Iconsax.direct)),
                 keyboardType: TextInputType.emailAddress,
                 validator: validateEmail,
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: TSizes.spaceBtwInputFields),
               TextFormField(
                 controller: phoneNumberController,
-                decoration: const InputDecoration(labelText: 'Phone Number'),
+                decoration: const InputDecoration(labelText: 'Phone Number',prefixIcon: Icon(Iconsax.call)),
                 keyboardType: TextInputType.phone,
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: TSizes.spaceBtwSections),
               ElevatedButton(
                 onPressed: () async {
                   if (_formKey.currentState!.validate()) {
@@ -111,7 +122,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     }
                   }
                 },
-                child: const Text('Register and Send Credentials'),
+                child: const Text('Sign Up'),
               ),
             ],
           ),

@@ -1,3 +1,4 @@
+import 'package:event_management_app/resources/components/navigation_menu.dart';
 import 'package:event_management_app/screens/eventscreen/event_screen.dart';
 import 'package:event_management_app/screens/signupscreen/sign_user.dart';
 import 'package:event_management_app/utility/routes/routes_name.dart';
@@ -25,6 +26,10 @@ class Routes {
       case RoutesName.event:
         return MaterialPageRoute(
           builder: (BuildContext context) =>  EventListScreen(),
+        );
+      case RoutesName.navigationMenu:
+        return MaterialPageRoute(
+          builder: (BuildContext context) =>  NavigationMenu(),
         );
       default:
         return MaterialPageRoute(

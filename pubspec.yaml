@@ -45,6 +45,11 @@ dependencies:
   firebase_storage: ^11.6.9
   image_picker: ^1.0.7
   cloud_firestore: ^4.15.8
+  get: ^4.6.5
+  iconsax: ^0.0.8
+  get_storage: ^2.1.1
+  intl: ^0.18.1
+  url_launcher: ^6.1.12
 
 
 dev_dependencies:
