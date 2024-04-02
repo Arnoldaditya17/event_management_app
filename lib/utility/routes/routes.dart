@@ -31,6 +31,7 @@ class Routes {
         return MaterialPageRoute(
           builder: (BuildContext context) =>  NavigationMenu(),
         );
+
       default:
         return MaterialPageRoute(
           builder: (_) {

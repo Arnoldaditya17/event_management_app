@@ -36,7 +36,7 @@ class LoginPageState extends State<LoginPage> {
 
       try {
         final User user = await UserController.login(email, password);
-        Navigator.pushNamed(context, RoutesName.navigationMenu);
+        Navigator.pushReplacementNamed(context, RoutesName.navigationMenu);
       } catch (e) {
         print('Authentication failed: $e');
         // Show error message or handle authentication failure

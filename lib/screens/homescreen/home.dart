@@ -1,11 +1,11 @@
-
-
 import 'package:event_management_app/utility/color_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import '../../constants/constants.dart';
 import '../../controllers/event_controller.dart';
 import '../../models/Event.dart';
 
+import '../../models/user.dart';
 import '../../utility/sizes.dart';
 import '../reusable/product_card.dart';
 import '../reusable/promo_slider.dart';
@@ -19,25 +19,52 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   Future<List<Event>>? _events;
-  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   void initState() {
     super.initState();
     _events = EventController.fetchEvents();
+    super.initState();
+
+    fetchUserData();
   }
 
   Future<void> _refreshEvents() async {
     setState(() {
       _events = EventController.fetchEvents();
+      fetchUserData();
     });
+  }
+  late String name;
+  late String phoneNumber;
+  late int userId;
+
+
+
+
+  Future<void> fetchUserData() async {
+    try {
+      final User? user = await Constants.getUserLocally();
+      if (user != null) {
+        setState(() {
+          name = '${user.firstname} ';
+
+
+
+        });
+      }
+    } catch (e) {
+      // Handle errors or show a message if data fetch fails
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -52,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .apply(color: Colors.white),
             ),
             Text(
-              'Your Name',
+            name,
               style: Theme.of(context)
                   .textTheme
                   .headlineLarge!
@@ -86,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: [
                     TSectionHeading(
-                      title: 'Popular Products',
+                      title: 'All Events',
                       showActionButton: false,
                     ),
                     const SizedBox(
@@ -96,7 +123,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     FutureBuilder<List<Event>>(
                       future: _events,
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return Center(
                             child: Lottie.asset(
                               'assets/loader/loaderLottie.json', // Replace with your Lottie file path
@@ -106,7 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           );
                         } else if (snapshot.hasError) {
-                          return Center(child: Text('Error: ${snapshot.error}'));
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
                         } else {
                           return ListView.builder(
                             shrinkWrap: true,
@@ -116,7 +145,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               Event event = snapshot.data![index];
                               return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: TSizes.sm, horizontal: TSizes.xs),
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: TSizes.sm, horizontal: TSizes.xs),
                                 child: TProductCardVertical(
                                   title: event.eventName ?? '',
                                   subtitle: event.locationOfEvent ?? '',
@@ -147,6 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){},backgroundColor: AppColors.primary,child: Icon(Icons.add,color: AppColors.white,)),
     );
   }
 }

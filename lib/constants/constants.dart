@@ -36,4 +36,8 @@ class Constants{
     }
     return null;
   }
+  static Future<void> signOut() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_userKey);
+  }
 }

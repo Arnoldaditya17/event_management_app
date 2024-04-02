@@ -16,7 +16,7 @@ class NavigationMenu extends StatelessWidget {
       bottomNavigationBar: Obx(
             () => NavigationBar(
           height: 80,
-          elevation: 0,
+          elevation: 5,
           selectedIndex: controller.selectedIndex.value,
           onDestinationSelected: (index) =>
           controller.selectedIndex.value = index,
@@ -40,7 +40,7 @@ class NavigationController extends GetxController {
   final screens = [
     HomeScreen(),
     EventListScreen(),
-    ImagePickerPage(),
+    ProfilePage(),
     //const ProfileScreen(),
   ];
 }

@@ -45,6 +45,7 @@ class UserRegistrationController{
           lastname: lastname,
           email: email,
           phone: phone,
+          userProfile: '',
         );
       }).toList();
       return users;

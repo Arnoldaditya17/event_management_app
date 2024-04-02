@@ -107,6 +107,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       lastname: lastName,
                       email: email,
                       phone: phoneNumber,
+                      userProfile: '',
                     );
 
                     bool isSaved = await UserRegistrationController.signupUsers(user);
